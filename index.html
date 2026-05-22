@@ -1,1 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Lúdica: Dispositivos de Entrada</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --accent: #f97316;
+            --bg: #f0f4f8;
+            --success: #22c55e;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+        }
+
+        p.subtitle {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 25px;
+        }
+
+        /* Roteiro do Professor (Colapsável/Discreto) */
+        .roteiro-professor {
+            background: #eff6ff;
+            border-left: 5px solid var(--primary);
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .roteiro-professor h3 {
+            color: var(--primary);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Fluxo de Dados Visual */
+        .fluxo-dados {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fdf2e9;
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .componente {
+            text-align: center;
+            z-index: 2;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            width: 25%;
+        }
+
+        .componente h4 {
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+
+        .seta-fluxo {
+            flex-grow: 1;
+            height: 15px;
+            background: #e2e8f0;
+            margin: 0 10px;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .pulso-eletrico {
+            position: absolute;
+            width: 30px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            animation: moverPulso 2s linear infinite;
+        }
+
+        @keyframes moverPulso {
+            0% { left: -30px; }
+            100% { left: 100%; }
+        }
+
+        .cpu-box {
+            background: var(--primary) !important;
+            color: white !important;
+        }
+
+        .cpu-box h4 {
+            color: white !important;
+        }
+
+        /* Atividade Prática */
+        .atividade-box {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .interacao-area {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .btn-input {
+            background: white;
+            border: 3px solid var(--primary);
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--primary);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-input:hover {
+            background: #f0f4f8;
+            transform: scale(1.05);
+        }
+
+        .btn-input:active {
+            background: #d0e1fd;
+        }
+
+        .monitor-binario {
+            background: #0f172a;
+            color: #38bdf8;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.5rem;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+        }
+
+        .sinal-alerta {
+            color: var(--success);
+            font-weight: bold;
+            margin-top: 10px;
+            height: 20px;
+            font-size: 0.95rem;
+        }
+
+        .icone {
+            font-size: 1.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>1. Dispositivos de Entrada (Input)</h1>
+        <p class="subtitle">Falando com a Máquina: Do Mundo Físico ao Código Binário</p>
+    </header>
+
+    <div class="container">
+
+        <div class="roteiro-professor">
+            <h3>⏱️ Guia do Professor (5 Minutos Cravados)</h3>
+            <ul>
+                <li><strong>Minuto 0 a 2 (Teoria Express):</strong> Explique que o computador não entende letras ou cliques diretos. Os dispositivos capturam força física (teclado), movimento (mouse) ou luz (webcam) e fecham um circuito elétrico.</li>
+                <li><strong>Minuto 2 a 3 (A Transição):</strong> Mostre o fluxo abaixo. Essa corrente elétrica gera pulsos rápidos que chamamos de 1 (tem energia) e 0 (não tem energia) — o sistema binário.</li>
+                <li><strong>Minuto 3 a 5 (Prática):</strong> Peça para os alunos interagirem com os botões abaixo e observarem o sinal físico virando binário em tempo real até chegar à CPU.</li>
+            </ul>
+        </div>
+
+        <div class="fluxo-dados">
+            <div class="componente">
+                <h4>1. Mundo Físico</h4>
+                <p style="font-size: 0.85rem; color: #666;">Ação do Usuário: Toque, Movimento ou Luz</p>
+            </div>
+            
+            <div class="seta-fluxo"><div class="pulso-eletrico"></div></div>
+            
+            <div class="componente" style="border-color: var(--accent);">
+                <h4>2. Circuito Fechado</h4>
+                <p id="txt-binario" style="font-size: 1.1rem; font-weight: bold; color: var(--accent);">00000000</p>
+            </div>
+            
+            <div class="seta-fluxo"><div class="pulso-eletrico"></div></div>
+            
+            <div class="componente cpu-box">
+                <h4>3. Processador (CPU)</h4>
+                <p style="font-size: 0.85rem; opacity: 0.9;">Processa e Entende o Comando</p>
+            </div>
+        </div>
+
+        <div class="atividade-box">
+            <h3>Atividade Lúdica: Ative os Circuitos!</h3>
+            <p style="color: #555; margin-top: 5px;">Simule ações físicas nos dispositivos abaixo e veja a mágica do sinal elétrico virando código:</p>
+            
+            <div class="interacao-area">
+                <button class="btn-input" onclick="enviarSinal('Teclado (Tecla A)', '01000001')">
+                    <span class="icone">⌨️</span>
+                    Pressionar Tecla 'A'
+                </button>
+                <button class="btn-input" onclick="enviarSinal('Mouse (Clique)', '00000001')">
+                    <span class="icone">🖱️</span>
+                    Clicar no Mouse
+                </button>
+                <button class="btn-input" onclick="enviarSinal('Webcam (Capturar Luz)', '11100010')">
+                    <span class="icone">📷</span>
+                    Sorrir para a Webcam
+                </button>
+            </div>
+
+            <h4>Código Binário Enviado para a CPU:</h4>
+            <div class="monitor-binario" id="monitor">AGUARDANDO SINAL...</div>
+            <div class="sinal-alerta" id="alerta"></div>
+        </div>
+
+    </div>
+
+    <script>
+        function enviarSinal(dispositivo, binario) {
+            // Atualiza o monitor binário principal
+            const monitor = document.getElementById('monitor');
+            monitor.innerText = binario;
+            monitor.style.color = '#22c55e';
+            
+            // Atualiza o bloco central do fluxo de dados
+            document.getElementById('txt-binario').innerText = binario;
+            
+            // Exibe mensagem informativa com feedback visual
+            const alerta = document.getElementById('alerta');
+            alerta.innerText = `⚡ SINAL ELÉTRICO ENVIADO: O ${dispositivo} transformou sua ação física no binário [ ${binario} ] !`;
+            
+            // Pequeno efeito de piscar no monitor para simular o recebimento do dado
+            monitor.style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                monitor.style.transform = 'scale(1)';
+                monitor.style.color = '#38bdf8';
+            }, 300);
+        }
+    </script>
+</body>
+</html>
