@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aula Lúdica: Dispositivos de Entrada</title>
+    <title>Simulador: Dispositivos de Entrada</title>
     <style>
         :root {
             --primary: #1e3a8a;
+            --primary-dark: #0f172a;
             --accent: #f97316;
             --bg: #f0f4f8;
             --success: #22c55e;
+            --text-dark-blue: #032b69; /* Azul escuro para as mensagens */
         }
 
         * {
@@ -52,23 +54,6 @@
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             padding: 25px;
-        }
-
-        /* Roteiro do Professor (Colapsável/Discreto) */
-        .roteiro-professor {
-            background: #eff6ff;
-            border-left: 5px solid var(--primary);
-            padding: 15px;
-            margin-bottom: 25px;
-            border-radius: 0 10px 10px 0;
-        }
-
-        .roteiro-professor h3 {
-            color: var(--primary);
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         /* Fluxo de Dados Visual */
@@ -132,7 +117,7 @@
             color: white !important;
         }
 
-        /* Atividade Prática */
+        /* Simulador Base */
         .atividade-box {
             background: #f8fafc;
             border: 2px dashed #cbd5e1;
@@ -141,6 +126,81 @@
             text-align: center;
         }
 
+        /* Novos Cards Interativos/Visuais */
+        .cards-visuais {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .card-preview {
+            flex: 1;
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 15px;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Estado ativo do card do Teclado */
+        .card-preview.teclado-ativo {
+            background: #ffe0cc;
+            border-color: var(--accent);
+            transform: scale(0.98);
+        }
+        .card-preview .letra-a {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ccc;
+            transition: color 0.2s;
+        }
+        .card-preview.teclado-ativo .letra-a {
+            color: var(--accent);
+        }
+
+        /* Gráfico do Mouse */
+        .eixo-mouse {
+            width: 100px;
+            height: 100px;
+            border-left: 2px solid #94a3b8;
+            border-bottom: 2px solid #94a3b8;
+            position: relative;
+        }
+        .ponto-mouse {
+            width: 10px;
+            height: 10px;
+            background-color: #94a3b8;
+            border-radius: 50%;
+            position: absolute;
+            left: 60px;
+            bottom: 40px;
+            transition: all 0.3s ease;
+        }
+        .card-preview.mouse-ativo .ponto-mouse {
+            background-color: #38bdf8;
+            box-shadow: 0 0 15px 5px #38bdf8;
+            left: 30px;
+            bottom: 70px;
+        }
+
+        /* Rosto da Webcam */
+        .rosto {
+            font-size: 3rem;
+            transition: transform 0.3s, filter 0.3s;
+        }
+        .card-preview.webcam-ativo .rosto {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 10px #facc15);
+        }
+
+        /* Botões de Ação */
         .interacao-area {
             display: flex;
             justify-content: center;
@@ -162,15 +222,12 @@
             flex-direction: column;
             align-items: center;
             gap: 8px;
+            width: 210px;
         }
 
         .btn-input:hover {
             background: #f0f4f8;
             transform: scale(1.05);
-        }
-
-        .btn-input:active {
-            background: #d0e1fd;
         }
 
         .monitor-binario {
@@ -189,16 +246,19 @@
             transition: all 0.3s;
         }
 
+        /* Mensagem informativa com azul bem escuro pedido */
         .sinal-alerta {
-            color: var(--success);
+            color: var(--text-dark-blue);
             font-weight: bold;
-            margin-top: 10px;
-            height: 20px;
-            font-size: 0.95rem;
+            margin-top: 15px;
+            min-height: 25px;
+            font-size: 1.1rem;
         }
 
-        .icone {
-            font-size: 1.8rem;
+        .legenda-card {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -210,15 +270,6 @@
     </header>
 
     <div class="container">
-
-        <div class="roteiro-professor">
-            <h3>⏱️ Guia do Professor (5 Minutos Cravados)</h3>
-            <ul>
-                <li><strong>Minuto 0 a 2 (Teoria Express):</strong> Explique que o computador não entende letras ou cliques diretos. Os dispositivos capturam força física (teclado), movimento (mouse) ou luz (webcam) e fecham um circuito elétrico.</li>
-                <li><strong>Minuto 2 a 3 (A Transição):</strong> Mostre o fluxo abaixo. Essa corrente elétrica gera pulsos rápidos que chamamos de 1 (tem energia) e 0 (não tem energia) — o sistema binário.</li>
-                <li><strong>Minuto 3 a 5 (Prática):</strong> Peça para os alunos interagirem com os botões abaixo e observarem o sinal físico virando binário em tempo real até chegar à CPU.</li>
-            </ul>
-        </div>
 
         <div class="fluxo-dados">
             <div class="componente">
@@ -242,21 +293,40 @@
         </div>
 
         <div class="atividade-box">
-            <h3>Atividade Lúdica: Ative os Circuitos!</h3>
-            <p style="color: #555; margin-top: 5px;">Simule ações físicas nos dispositivos abaixo e veja a mágica do sinal elétrico virando código:</p>
+            <h3>Simulador: Ative os Circuitos!</h3>
+            <p style="color: #555; margin-bottom: 20px;">Use os botões de ação para simular a captação de dados:</p>
             
+            <div class="cards-visuais">
+                <div class="card-preview" id="card-teclado">
+                    <div class="letra-a" id="letra-a">A</div>
+                    <div class="legenda-card">Circuito da Tecla</div>
+                </div>
+                
+                <div class="card-preview" id="card-mouse">
+                    <div class="eixo-mouse">
+                        <div class="ponto-mouse" id="ponto"></div>
+                    </div>
+                    <div class="legenda-card">Coordenadas X, Y</div>
+                </div>
+                
+                <div class="card-preview" id="card-webcam">
+                    <div class="rosto" id="rosto">😐</div>
+                    <div class="legenda-card">Captura de Luz</div>
+                </div>
+            </div>
+
             <div class="interacao-area">
-                <button class="btn-input" onclick="enviarSinal('Teclado (Tecla A)', '01000001')">
-                    <span class="icone">⌨️</span>
-                    Pressionar Tecla 'A'
+                <button class="btn-input" onclick="simularTeclado()">
+                    <span>⌨️ Teclado</span>
+                    <span style="font-size:0.85rem; font-weight:normal;">Pressionar tecla A</span>
                 </button>
-                <button class="btn-input" onclick="enviarSinal('Mouse (Clique)', '00000001')">
-                    <span class="icone">🖱️</span>
-                    Clicar no Mouse
+                <button class="btn-input" onclick="simularMouse()">
+                    <span>🖱️ Mouse</span>
+                    <span style="font-size:0.85rem; font-weight:normal;">Mover e Clicar</span>
                 </button>
-                <button class="btn-input" onclick="enviarSinal('Webcam (Capturar Luz)', '11100010')">
-                    <span class="icone">📷</span>
-                    Sorrir para a Webcam
+                <button class="btn-input" onclick="simularWebcam()">
+                    <span>📷 Webcam</span>
+                    <span style="font-size:0.85rem; font-weight:normal;">Sorrir para Câmera</span>
                 </button>
             </div>
 
@@ -268,25 +338,41 @@
     </div>
 
     <script>
-        function enviarSinal(dispositivo, binario) {
-            // Atualiza o monitor binário principal
-            const monitor = document.getElementById('monitor');
-            monitor.innerText = binario;
-            monitor.style.color = '#22c55e';
-            
-            // Atualiza o bloco central do fluxo de dados
+        function resetarCards() {
+            document.getElementById('card-teclado').classList.remove('teclado-ativo');
+            document.getElementById('card-mouse').classList.remove('mouse-ativo');
+            document.getElementById('card-webcam').classList.remove('webcam-ativo');
+            document.getElementById('rosto').innerText = "😐";
+        }
+
+        function atualizarDadosGerais(binario, mensagem) {
+            document.getElementById('monitor').innerText = binario;
             document.getElementById('txt-binario').innerText = binario;
+            document.getElementById('alerta').innerText = mensagem;
             
-            // Exibe mensagem informativa com feedback visual
-            const alerta = document.getElementById('alerta');
-            alerta.innerText = `⚡ SINAL ELÉTRICO ENVIADO: O ${dispositivo} transformou sua ação física no binário [ ${binario} ] !`;
-            
-            // Pequeno efeito de piscar no monitor para simular o recebimento do dado
+            // Pequeno pulso no monitor digital
+            const monitor = document.getElementById('monitor');
             monitor.style.transform = 'scale(1.02)';
-            setTimeout(() => {
-                monitor.style.transform = 'scale(1)';
-                monitor.style.color = '#38bdf8';
-            }, 300);
+            setTimeout(() => monitor.style.transform = 'scale(1)', 200);
+        }
+
+        function simularTeclado() {
+            resetarCards();
+            document.getElementById('card-teclado').classList.add('teclado-ativo');
+            atualizarDadosGerais('01000001', '⚡ SINAL ELÉTRICO: A pressão física na tecla fechou o circuito elétrico gerando a letra A (01000001)!');
+        }
+
+        function simularMouse() {
+            resetarCards();
+            document.getElementById('card-mouse').classList.add('mouse-ativo');
+            atualizarDadosGerais('00111101', '⚡ SINAL ELÉTRICO: O movimento mudou o sensor de posição enviando novas coordenadas X e Y para a CPU!');
+        }
+
+        function simularWebcam() {
+            resetarCards();
+            document.getElementById('card-webcam').classList.add('webcam-ativo');
+            document.getElementById('rosto').innerText = "😁";
+            atualizarDadosGerais('11100010', '⚡ SINAL ELÉTRICO: A lente captou a variação de luz do sorriso e digitalizou em milhares de pontinhos!');
         }
     </script>
 </body>
