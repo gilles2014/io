@@ -11,7 +11,7 @@
             --accent: #f97316;
             --bg: #f0f4f8;
             --success: #22c55e;
-            --text-dark-blue: #032b69; /* Azul escuro para as mensagens */
+            --text-dark-blue: #032b69;
         }
 
         * {
@@ -24,7 +24,7 @@
         body {
             background-color: var(--bg);
             color: #333;
-            padding: 20px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -33,18 +33,19 @@
 
         header {
             text-align: center;
-            margin-bottom: 20px;
+            margin: 15px 0;
+            padding: 0 10px;
         }
 
         h1 {
             color: var(--primary);
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             margin-bottom: 5px;
         }
 
         p.subtitle {
             color: #666;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .container {
@@ -53,10 +54,10 @@
             background: white;
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            padding: 25px;
+            padding: 20px;
         }
 
-        /* Fluxo de Dados Visual */
+        /* Fluxo de Dados Flexível e Responsivo */
         .fluxo-dados {
             display: flex;
             align-items: center;
@@ -64,35 +65,39 @@
             background: #fdf2e9;
             border: 2px solid var(--accent);
             border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
+            padding: 15px;
+            margin-bottom: 25px;
+            gap: 10px;
         }
 
         .componente {
             text-align: center;
-            z-index: 2;
             background: white;
-            padding: 15px;
+            padding: 10px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            width: 25%;
+            flex: 1;
+            min-width: 80px;
         }
 
         .componente h4 {
             color: var(--accent);
-            margin-bottom: 5px;
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+        }
+
+        .componente p {
+            font-size: 0.75rem;
         }
 
         .seta-fluxo {
-            flex-grow: 1;
-            height: 15px;
+            flex: 0.5;
+            height: 10px;
             background: #e2e8f0;
-            margin: 0 10px;
             position: relative;
             border-radius: 10px;
             overflow: hidden;
+            min-width: 20px;
         }
 
         .pulso-eletrico {
@@ -117,25 +122,24 @@
             color: white !important;
         }
 
-        /* Simulador Base */
+        /* Caixa do Simulador */
         .atividade-box {
             background: #f8fafc;
             border: 2px dashed #cbd5e1;
             border-radius: 12px;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
         }
 
-        /* Novos Cards Interativos/Visuais */
+        /* Grid Responsivo para os Cards Visuais */
         .cards-visuais {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 15px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .card-preview {
-            flex: 1;
             background: #ffffff;
             border: 2px solid #e2e8f0;
             border-radius: 10px;
@@ -146,10 +150,9 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            position: relative;
         }
 
-        /* Estado ativo do card do Teclado */
+        /* Estados ativos dos cards */
         .card-preview.teclado-ativo {
             background: #ffe0cc;
             border-color: var(--accent);
@@ -165,10 +168,9 @@
             color: var(--accent);
         }
 
-        /* Gráfico do Mouse */
         .eixo-mouse {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             border-left: 2px solid #94a3b8;
             border-bottom: 2px solid #94a3b8;
             position: relative;
@@ -179,18 +181,17 @@
             background-color: #94a3b8;
             border-radius: 50%;
             position: absolute;
-            left: 60px;
-            bottom: 40px;
+            left: 50px;
+            bottom: 30px;
             transition: all 0.3s ease;
         }
         .card-preview.mouse-ativo .ponto-mouse {
             background-color: #38bdf8;
             box-shadow: 0 0 15px 5px #38bdf8;
-            left: 30px;
-            bottom: 70px;
+            left: 20px;
+            bottom: 55px;
         }
 
-        /* Rosto da Webcam */
         .rosto {
             font-size: 3rem;
             transition: transform 0.3s, filter 0.3s;
@@ -200,19 +201,19 @@
             filter: drop-shadow(0 0 10px #facc15);
         }
 
-        /* Botões de Ação */
+        /* Grid Responsivo para os Botões */
         .interacao-area {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
             margin: 20px 0;
         }
 
         .btn-input {
             background: white;
             border: 3px solid var(--primary);
-            padding: 15px 25px;
-            font-size: 1.1rem;
+            padding: 12px 15px;
+            font-size: 1.05rem;
             font-weight: bold;
             color: var(--primary);
             border-radius: 10px;
@@ -221,44 +222,73 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            width: 210px;
+            gap: 5px;
+            width: 100%; /* Ocupa o espaço do grid */
         }
 
         .btn-input:hover {
             background: #f0f4f8;
-            transform: scale(1.05);
+            transform: translateY(-2px);
         }
 
         .monitor-binario {
             background: #0f172a;
             color: #38bdf8;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             padding: 15px;
             border-radius: 8px;
             margin-top: 15px;
-            min-height: 60px;
+            min-height: 55px;
             display: flex;
             align-items: center;
             justify-content: center;
             letter-spacing: 2px;
-            transition: all 0.3s;
+            word-break: break-all; /* Evita quebra de layout em telas mini */
         }
 
-        /* Mensagem informativa com azul bem escuro pedido */
         .sinal-alerta {
             color: var(--text-dark-blue);
             font-weight: bold;
             margin-top: 15px;
-            min-height: 25px;
-            font-size: 1.1rem;
+            font-size: 1rem;
+            line-height: 1.4;
+            padding: 0 5px;
         }
 
         .legenda-card {
             font-size: 0.75rem;
             color: #666;
             margin-top: 5px;
+        }
+
+        /* --- MEDIA QUERIES PARA ADAPTAÇÃO FINA --- */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            p.subtitle { font-size: 0.9rem; }
+            
+            /* Em telas muito pequenas, simplifica o fluxo do topo para não amassar */
+            .fluxo-dados {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .seta-fluxo {
+                width: 10px;
+                height: 20px;
+                min-width: auto;
+            }
+            .pulso-eletrico {
+                width: 100%;
+                height: 20px;
+                background: linear-gradient(180deg, transparent, var(--accent), transparent);
+                animation: moverPulsoVertical 1.5s linear infinite;
+            }
+            .componente { width: 100%; }
+        }
+
+        @keyframes moverPulsoVertical {
+            0% { top: -20px; }
+            100% { top: 100%; }
         }
     </style>
 </head>
@@ -274,27 +304,27 @@
         <div class="fluxo-dados">
             <div class="componente">
                 <h4>1. Mundo Físico</h4>
-                <p style="font-size: 0.85rem; color: #666;">Ação do Usuário: Toque, Movimento ou Luz</p>
+                <p style="color: #666;">Ação do Usuário</p>
             </div>
             
             <div class="seta-fluxo"><div class="pulso-eletrico"></div></div>
             
             <div class="componente" style="border-color: var(--accent);">
-                <h4>2. Circuito Fechado</h4>
-                <p id="txt-binario" style="font-size: 1.1rem; font-weight: bold; color: var(--accent);">00000000</p>
+                <h4>2. Circuito</h4>
+                <p id="txt-binario" style="font-weight: bold; color: var(--accent);">00000000</p>
             </div>
             
             <div class="seta-fluxo"><div class="pulso-eletrico"></div></div>
             
             <div class="componente cpu-box">
-                <h4>3. Processador (CPU)</h4>
-                <p style="font-size: 0.85rem; opacity: 0.9;">Processa e Entende o Comando</p>
+                <h4>3. CPU</h4>
+                <p style="opacity: 0.9;">Processa o Sinal</p>
             </div>
         </div>
 
         <div class="atividade-box">
-            <h3>Simulador: Ative os Circuitos!</h3>
-            <p style="color: #555; margin-bottom: 20px;">Use os botões de ação para simular a captação de dados:</p>
+            <h3 style="font-size: 1.2rem;">Simulador: Ative os Circuitos!</h3>
+            <p style="color: #555; margin-bottom: 15px; font-size: 0.9rem;">Toque nos botões para simular os dispositivos:</p>
             
             <div class="cards-visuais">
                 <div class="card-preview" id="card-teclado">
@@ -318,19 +348,19 @@
             <div class="interacao-area">
                 <button class="btn-input" onclick="simularTeclado()">
                     <span>⌨️ Teclado</span>
-                    <span style="font-size:0.85rem; font-weight:normal;">Pressionar tecla A</span>
+                    <span style="font-size:0.8rem; font-weight:normal;">Pressionar tecla A</span>
                 </button>
                 <button class="btn-input" onclick="simularMouse()">
                     <span>🖱️ Mouse</span>
-                    <span style="font-size:0.85rem; font-weight:normal;">Mover e Clicar</span>
+                    <span style="font-size:0.8rem; font-weight:normal;">Mover e Clicar</span>
                 </button>
                 <button class="btn-input" onclick="simularWebcam()">
                     <span>📷 Webcam</span>
-                    <span style="font-size:0.85rem; font-weight:normal;">Sorrir para Câmera</span>
+                    <span style="font-size:0.8rem; font-weight:normal;">Sorrir para Câmera</span>
                 </button>
             </div>
 
-            <h4>Código Binário Enviado para a CPU:</h4>
+            <h4 style="font-size: 1rem; margin-top: 10px;">Código Binário Enviado para a CPU:</h4>
             <div class="monitor-binario" id="monitor">AGUARDANDO SINAL...</div>
             <div class="sinal-alerta" id="alerta"></div>
         </div>
@@ -349,11 +379,6 @@
             document.getElementById('monitor').innerText = binario;
             document.getElementById('txt-binario').innerText = binario;
             document.getElementById('alerta').innerText = mensagem;
-            
-            // Pequeno pulso no monitor digital
-            const monitor = document.getElementById('monitor');
-            monitor.style.transform = 'scale(1.02)';
-            setTimeout(() => monitor.style.transform = 'scale(1)', 200);
         }
 
         function simularTeclado() {
